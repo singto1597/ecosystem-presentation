@@ -27,22 +27,34 @@ async function loadData() {
         alert("โหลดข้อมูล JSON พัง! ลองเปิด Console (F12) ดูว่า Error อะไร");
     }
 }
-
 // 1. สร้าง DOM จากข้อมูล
 function createOrganisms() {
-    // แก้จุดที่ 2: เปลี่ยนจาก organisms เป็น nodes ตามไฟล์ JSON
     parsedData.nodes.forEach(org => {
         const div = document.createElement('div');
         div.id = org.id;
         div.className = 'organism';
-        
-        // ถ้านายอยากใส่ Emoji ชั่วคราว ให้ใส่ใน JSON ว่า "emoji": "🦅" 
-        // หรือถ้าจะเอารูปมาใส่เป็น CSS Background ให้ลบบรรทัดนี้ทิ้งไปเลย
         div.innerHTML = org.emoji || ''; 
         
-        // แก้จุดที่ 3: ดึงตำแหน่งจาก org.position
+        // 🌟 ดึงขนาดจาก JSON (ถ้าไม่มีให้ใช้ 65px เป็นค่ามาตรฐาน)
+        const size = org.size || '65px';
+        div.style.width = size;
+        div.style.height = size;
+
+        // กำหนดตำแหน่ง X, Y
         div.style.top = org.position.top;
         div.style.left = org.position.left;
+
+        // 🌟🔥 เทคนิคเจาะรูความมืด (ส่องไฟฉาย) 🔥🌟
+        // คำนวณเปอร์เซ็นต์ให้ออกมาเป็นพิกัด Pixel เป๊ะๆ ของแผนที่ 900x600
+        const xPercent = parseFloat(org.position.left);
+        const yPercent = parseFloat(org.position.top);
+        const xPx = (900 * xPercent) / 100;
+        const yPx = (600 * yPercent) / 100;
+
+        // เอารูปพื้นหลังมาแปะที่วงกลมแต่ละอัน แล้วเลื่อนจุดภาพให้ตรงกับฉากหลังใหญ่!
+        div.style.backgroundImage = "url('./bg-desert.jpg')";
+        div.style.backgroundSize = "900px 600px";
+        div.style.backgroundPosition = `-${xPx}px -${yPx}px`;
 
         div.addEventListener('click', (e) => {
             e.stopPropagation(); 
@@ -81,7 +93,8 @@ function createLines() {
         if (elFrom && elTo) {
             const line = new LeaderLine(elFrom, elTo, { 
                 color: '#ffeb3b', size: 3, path: 'fluid', 
-                startPlug: 'disc', endPlug: 'arrow3', hide: true 
+                startPlug: 'disc', endPlug: 'arrow3', hide: true,
+                dropShadow: true // 🔥 เพิ่มบรรทัดนี้ลงไป เส้นจะลอยเด่นขึ้นมาเลย
             });
             line.fromId = conn.from;
             line.toId = conn.to;
@@ -89,7 +102,6 @@ function createLines() {
         }
     });
 }
-
 // 4. ควบคุมการแสดงผล
 function updateView() {
     const organismsDOM = document.querySelectorAll('.organism');
@@ -99,17 +111,22 @@ function updateView() {
 
     if (viewState === 0) {
         statusText.textContent = "ซ่อนสายใยอาหาร";
+        mapContainer.classList.remove('dark-mode'); // เอาความมืดออก
+        
     } else if (viewState === 1) {
         statusText.textContent = "แสดงสายใยอาหารทั้งหมด (Food Web)";
+        mapContainer.classList.add('dark-mode'); // สั่งให้ฉากหลังมืด
         allLeaderLines.forEach(line => line.show('draw'));
+        
     } else {
         const chainIndex = viewState - 2; 
         const currentChainIDs = parsedData.foodChains[chainIndex];
         statusText.textContent = `กำลังไฮไลท์ห่วงโซ่ที่ ${chainIndex + 1}`;
+        mapContainer.classList.add('dark-mode'); // สั่งให้ฉากหลังมืด
 
         organismsDOM.forEach(org => {
             if (!currentChainIDs.includes(org.id)) {
-                org.classList.add('dimmed');
+                org.classList.add('dimmed'); // ซ่อนตัวที่ไม่เกี่ยว
             }
         });
 

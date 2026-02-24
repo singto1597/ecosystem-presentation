@@ -18,60 +18,151 @@ button {
 }
 button:hover { background-color: #faedcd; }
 
+#layout-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 30px; /* ระยะห่างระหว่างรูปกับกล่องข้อมูล */
+    width: 100%;
+    max-width: 1300px;
+}
+
 /* กรอบแผนที่ทะเลทราย */
 #desert-map {
     position: relative;
     width: 900px; 
     height: 600px;
-    
-    /* เปลี่ยนตรงนี้แหละ! ใส่ชื่อไฟล์รูปของเราลงไป */
     background-image: url('./bg-desert.jpg'); 
-    
-    background-size: cover; /* บรรทัดนี้จะทำให้รูปขยายพอดีกรอบ */
-    background-position: center; /* จัดให้รูปอยู่กึ่งกลาง */
+    background-size: 900px 600px; /* บังคับไซส์ให้เป๊ะ เพื่อให้เจาะรูได้ตรงเป๊ะ */
+    background-position: top left;
     border-radius: 12px; 
     border: 3px solid #a17c5b;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    overflow: hidden;
 }
 
-/* สไตล์กล่องสิ่งมีชีวิต */
+/* 🔥 ไฮไลท์: เลเยอร์ทำภาพพื้นหลังให้มืดลง (Overlay) */
+#desert-map::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* ความมืด 70% */
+    opacity: 0; /* ซ่อนไว้ก่อน */
+    transition: opacity 0.5s ease;
+    pointer-events: none; /* ให้คลิกทะลุไปโดนปุ่มได้ */
+    z-index: 1; /* อยู่ใต้ปุ่มสัตว์ */
+}
+/* เมื่อ JS สั่งเพิ่มคลาสนี้ พื้นหลังจะมืดลง */
+#desert-map.dark-mode::after {
+    opacity: 1; 
+}
+/* สไตล์กล่องสิ่งมีชีวิต (ทำรูเจาะ) */
 .organism {
-    position: absolute; /* สำคัญมาก สำหรับให้ JS กำหนด x,y */
-    width: 60px; height: 60px;
-    background-color: rgba(255,255,255,0.9);
-    border-radius: 50%; border: 3px solid #d4a373;
+    position: absolute;
+    /* width กับ height ไม่ต้องใส่ในนี้แล้ว เดี๋ยว JS ดึงจาก data.json มาใส่ให้ */
+    border-radius: 50%; 
+    border: 2px dashed rgba(255, 255, 255, 0.8); 
     display: flex; justify-content: center; align-items: center;
-    font-size: 30px; /* ขนาด Emoji */
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 5;
+    /* เพิ่มเงาด้านในให้ดูเหมือนถูกเจาะลึกลงไป */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
 }
 
-.organism:hover { transform: scale(1.2); z-index: 10; }
+.organism:hover { 
+    transform: scale(1.1); 
+    border-color: #ffeb3b;
+    z-index: 10; 
+}
+
+/* ตอนเปิดสายใยอาหาร ให้เรืองแสงรอบนอก */
+#desert-map.dark-mode .organism:not(.dimmed) {
+    border: 2px solid #ffeb3b;
+    box-shadow: 0 0 15px rgba(255, 235, 59, 0.5), inset 0 0 10px rgba(0,0,0,0.2); 
+}
+
+/* ตอนไฮไลท์ห่วงโซ่ (สว่างวาบขยายใหญ่) */
 .organism.highlighted {
-    transform: scale(1.3); border-color: #ffeb3b;
-    box-shadow: 0 0 20px #ffeb3b; background-color: #fff; z-index: 15;
+    transform: scale(1.2); 
+    border: 3px solid #ffeb3b !important;
+    box-shadow: 0 0 25px #ffeb3b, inset 0 0 5px rgba(0,0,0,0.1) !important; 
+    z-index: 15;
 }
-.organism.dimmed { opacity: 0.3; filter: grayscale(80%); }
 
-/* สไตล์กล่องข้อมูล */
+.organism.dimmed { opacity: 0; pointer-events: none; }
+
+/* 🔥 เพิ่มความสว่างให้เส้น LeaderLine ทะลุความมืด */
+.leader-line {
+    filter: drop-shadow(0 0 4px #ffeb3b); 
+    z-index: 20 !important; /* 🔥 ดันขึ้นมาชั้น 20 ให้เส้นพาดทับวงกลมไปเลย! */
+    pointer-events: none; /* 🔥 สำคัญมาก! สั่งให้เมาส์คลิกทะลุเส้นได้ จะได้ไม่ไปขวางตอนเราจะคลิกสัตว์ */
+}
+/* 🔥 สไตล์กล่องข้อมูล (กลับไปลอยอยู่ในรูป + ย่อส่วนมินิมอล) */
 #info-card {
-    position: absolute;
-    top: 20px; right: 20px;
-    width: 250px;
-    background-color: rgba(24, 24, 37, 0.95);
-    padding: 20px;
-    border-radius: 12px; border-left: 5px solid #a6e3a1;
-    display: none; /* ซ่อนไว้ก่อน */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.7);
-    z-index: 100; /* ให้อยู่บนสุด ทับเส้นทุกเส้น */
+    position: absolute; /* สั่งให้ลอยทับรูป */
+    top: 15px; /* ห่างจากขอบบนนิดนึง */
+    right: 15px; /* ห่างจากขอบขวานิดนึง */
+    width: 220px; /* ไซส์เล็กลง ไม่เกะกะ (เดิม 300px) */
+    background-color: rgba(24, 24, 37, 0.85); /* โปร่งใสนิดๆ จะได้เห็นฉากหลัง */
+    backdrop-filter: blur(5px); /* เบลอฉากหลังที่โดนทับ โคตรเท่ */
+    padding: 15px; /* ลดขอบด้านในลง */
+    border-radius: 10px; 
+    border-left: 4px solid #a6e3a1; /* ขอบซ้ายบางลงนิดนึง */
+    display: none; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.6); /* ลดเงาลงให้ดูเบาขึ้น */
     color: #cdd6f4;
+    z-index: 100; /* ดันให้อยู่บนสุด ทับเลเยอร์ฉากมืดและเส้นทั้งหมด */
 }
 
-#info-card h2 { margin-top: 0; font-size: 1.2rem; color: #a6e3a1; }
-.tag {
-    display: inline-block; padding: 4px 8px; border-radius: 6px;
-    font-size: 12px; font-weight: bold; margin-bottom: 10px;
+/* ปรับฟอนต์ข้างในให้เล็กลงรับกับขนาดกล่อง */
+#info-card h2 { 
+    margin-top: 0; 
+    margin-bottom: 8px;
+    font-size: 1.1rem; 
+    color: #a6e3a1; 
 }
-.tag.biotic { background-color: #89b4fa; color: #11111b; }
-.tag.abiotic { background-color: #f38ba8; color: #11111b; }
+
+#info-card p {
+    font-size: 0.85rem;
+}
+
+.tag {
+    display: inline-block; 
+    padding: 3px 6px; 
+    border-radius: 4px;
+    font-size: 10px; /* ป้าย tag เล็กลง */
+    font-weight: bold; 
+    margin-bottom: 8px;
+}
+
+/* 🔥 สไตล์เครดิตด้านล่างเว็บ (ทรงมินิมอล แต่สีเด่นชัด) */
+#credits {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 0.95rem; /* ปรับขนาดให้ใหญ่อ่านง่ายขึ้นนิดนึง */
+    color: #e4c6a5; /* ใช้สีครีมสว่างๆ โทนเดียวกับข้อความหลักของเว็บ */
+    letter-spacing: 0.05em; 
+    line-height: 1.6;
+    /* (ลบฟอนต์โค้ดดิ้งออกแล้ว มันจะกลับไปใช้ฟอนต์ปกติของเว็บโดยอัตโนมัติ) */
+}
+
+#credits p {
+    margin: 5px 0;
+}
+
+/* 🔥 เน้นสีชื่อกลุ่มให้เด่น (สีเขียวสว่าง) */
+#credits .text-green {
+    color: #a6e3a1; 
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(166, 227, 161, 0.4); /* ใส่เรืองแสงเบาๆ */
+}
+
+/* 🔥 เน้นสีชื่อครูให้เด่น (สีเหลืองสว่าง) */
+#credits .text-yellow {
+    color: #ffeb3b; 
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 235, 59, 0.4); /* ใส่เรืองแสงเบาๆ */
+}

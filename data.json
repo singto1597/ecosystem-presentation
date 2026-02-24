@@ -8,7 +8,8 @@
         "type": "Abiotic",
         "role": "แหล่งพลังงาน",
         "desc": "ให้พลังงานแสงและความร้อน เป็นจุดเริ่มต้นของการถ่ายทอดพลังงาน",
-        "position": { "top": "25%", "left": "45%" }
+        "position": { "top": "20%", "left": "39%" },
+        "size": "120px"
       },
       {
         "id": "dead_tree",
@@ -16,7 +17,8 @@
         "type": "Abiotic",
         "role": "แหล่งที่อยู่อาศัย",
         "desc": "เป็นที่หลบภัย ซ่อนตัว และให้ร่มเงาแก่สัตว์ขนาดเล็ก",
-        "position": { "top": "70%", "left": "70%" }
+        "position": { "top": "70%", "left": "55%" },
+        "size": "100px"
       },
       {
         "id": "grass",
@@ -24,15 +26,26 @@
         "type": "Biotic",
         "role": "ผู้ผลิต (Producer)",
         "desc": "พืชทนแล้ง เปลี่ยนพลังงานแสงอาทิตย์เป็นอาหารผ่านการสังเคราะห์ด้วยแสง",
-        "position": { "top": "58%", "left": "48%" }
+        "position": { "top": "50%", "left": "45%" },
+        "size": "80px"
+      },
+      {
+        "id": "cactus",
+        "name": "กระบองเพชร (Cactus)",
+        "type": "Biotic",
+        "role": "ผู้ผลิต (Producer)",
+        "desc": "พืชกักเก็บน้ำ เป็นแหล่งอาหารของสัตว์ทะเลทรายหลายชนิด",
+        "position": { "top": "31%", "left": "0%" },
+        "size": "70px"
       },
       {
         "id": "mouse",
         "name": "หนูทะเลทราย (Jerboa/Mouse)",
         "type": "Biotic",
         "role": "ผู้บริโภคอันดับ 1 (Primary Consumer)",
-        "desc": "กินเมล็ดพืชและหญ้าเป็นอาหาร เป็นเหยื่อหลักของสัตว์นักล่าหลายชนิด",
-        "position": { "top": "80%", "left": "38%" }
+        "desc": "กินเมล็ดพืชและหญ้าเป็นอาหาร เป็นเหยื่อหลักของสัตว์นักล่า",
+        "position": { "top": "77%", "left": "32.5%" },
+        "size": "80px"
       },
       {
         "id": "rabbit",
@@ -40,7 +53,8 @@
         "type": "Biotic",
         "role": "ผู้บริโภคอันดับ 1 (Primary Consumer)",
         "desc": "กินพืช หญ้า และเปลือกไม้ มีหูยาวช่วยระบายความร้อน",
-        "position": { "top": "45%", "left": "60%" }
+        "position": { "top": "40.5%", "left": "56%" },
+        "size": "85px"
       },
       {
         "id": "sheep",
@@ -48,7 +62,8 @@
         "type": "Biotic",
         "role": "ผู้บริโภคอันดับ 1 (Primary Consumer)",
         "desc": "สัตว์กินพืชขนาดใหญ่ อาศัยอยู่ตามโขดหิน กินพุ่มไม้และหญ้า",
-        "position": { "top": "35%", "left": "50%" }
+        "position": { "top": "35%", "left": "27.5%" },
+        "size": "75px"
       },
       {
         "id": "lizard",
@@ -56,23 +71,35 @@
         "type": "Biotic",
         "role": "ผู้บริโภคอันดับ 2 (Secondary Consumer)",
         "desc": "สัตว์เลือดเย็น กินแมลงและพืชบางชนิด มักอาศัยตามโขดหินหรือกิ่งไม้",
-        "position": { "top": "66%", "left": "78%" }
+        "position": { "top": "58%", "left": "65%" },
+        "size": "160px"
       },
       {
         "id": "snake",
         "name": "งูหางกระดิ่ง (Rattlesnake)",
         "type": "Biotic",
         "role": "ผู้บริโภคอันดับ 2-3 (Secondary/Tertiary)",
-        "desc": "สัตว์เลื้อยคลานมีพิษ ดักซุ่มโจมตีหนู กิ้งก่า หรือกระต่ายตัวเล็ก",
-        "position": { "top": "85%", "left": "20%" }
+        "desc": "สัตว์เลื้อยคลานมีพิษ ดักซุ่มโจมตีสัตว์ขนาดเล็ก",
+        "position": { "top": "71.5%", "left": "12%" },
+        "size": "160px"
+      },
+      {
+        "id": "fox",
+        "name": "หมาจิ้งจอก (Desert Fox)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคอันดับ 2 (Secondary Consumer)",
+        "desc": "นักล่าขนาดเล็ก กินหนู กระต่าย และแมลงเป็นอาหาร",
+        "position": { "top": "38%", "left": "73%" },
+        "size": "140px"
       },
       {
         "id": "coyote",
         "name": "ไคโยตี้ (Coyote)",
         "type": "Biotic",
-        "role": "ผู้บริโภคระดับสูง (Tertiary Consumer)",
-        "desc": "นักล่าที่ปรับตัวเก่ง กินได้ทั้งกระต่าย หนู หรือแม้แต่กิ้งก่า",
-        "position": { "top": "48%", "left": "80%" }
+        "role": "ผู้บริโภคระดับสูง (Top/Tertiary Consumer)",
+        "desc": "นักล่าที่ปรับตัวเก่ง กินได้ทั้งกระต่าย หนู หรือสัตว์ใหญ่",
+        "position": { "top": "43%", "left": "7%" },
+        "size": "125px"
       },
       {
         "id": "hawk",
@@ -80,26 +107,69 @@
         "type": "Biotic",
         "role": "ผู้บริโภคสูงสุด (Top Consumer)",
         "desc": "นกนักล่าสายตาคมกริบ โฉบจับหนู งู และกระต่ายจากทางอากาศ",
-        "position": { "top": "15%", "left": "55%" }
+        "position": { "top": "0.5%", "left": "45%" },
+        "size": "160px"
+      },
+      {
+        "id": "vulture",
+        "name": "อีแร้ง (Vulture)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคซากสัตว์ (Scavenger)",
+        "desc": "กินซากสัตว์ที่ตายแล้ว ช่วยทำความสะอาดระบบนิเวศไม่ให้เกิดโรคระบาด",
+        "position": { "top": "13%", "left": "63%" },
+        "size": "120px"
+      },
+      {
+        "id": "decomposer",
+        "name": "เห็ดราและจุลินทรีย์ (Decomposers)",
+        "type": "Biotic",
+        "role": "ผู้ย่อยสลาย (Decomposer)",
+        "desc": "ย่อยสลายซากพืชซากสัตว์ คืนแร่ธาตุกลับสู่ดินให้ผู้ผลิตนำไปใช้ใหม่",
+        "position": { "top": "78%", "left": "85%" },
+        "size": "90px"
       }
     ],
     "webConnections": [
       { "from": "grass", "to": "mouse" },
       { "from": "grass", "to": "rabbit" },
       { "from": "grass", "to": "sheep" },
+      { "from": "cactus", "to": "mouse" },
+      { "from": "cactus", "to": "rabbit" },
+      { "from": "cactus", "to": "lizard" },
       { "from": "mouse", "to": "snake" },
-      { "from": "mouse", "to": "coyote" },
       { "from": "mouse", "to": "hawk" },
+      { "from": "mouse", "to": "coyote" },
+      { "from": "mouse", "to": "fox" },
       { "from": "rabbit", "to": "coyote" },
       { "from": "rabbit", "to": "hawk" },
+      { "from": "rabbit", "to": "snake" },
+      { "from": "rabbit", "to": "fox" },
+      { "from": "sheep", "to": "coyote" },
       { "from": "lizard", "to": "snake" },
-      { "from": "lizard", "to": "hawk" },
-      { "from": "snake", "to": "hawk" }
+      { "from": "snake", "to": "hawk" },
+      { "from": "snake", "to": "coyote" },
+      { "from": "coyote", "to": "vulture" },
+      { "from": "hawk", "to": "vulture" },
+      { "from": "dead_tree", "to": "decomposer" },
+      { "from": "vulture", "to": "decomposer" }
     ],
     "foodChains": [
       ["grass", "mouse", "snake", "hawk"],
-      ["grass", "rabbit", "coyote"],
-      ["grass", "mouse", "hawk"]
+      ["grass", "mouse", "snake", "coyote"],
+      ["grass", "mouse", "hawk"],
+      ["grass", "mouse", "coyote"],
+      ["grass", "mouse", "fox"],
+      ["grass", "rabbit", "coyote", "vulture", "decomposer"],
+      ["grass", "rabbit", "hawk"],
+      ["grass", "rabbit", "snake", "hawk"],
+      ["grass", "rabbit", "fox"],
+      ["grass", "sheep", "coyote"],
+      ["cactus", "mouse", "snake", "hawk", "vulture", "decomposer"],
+      ["cactus", "mouse", "coyote"],
+      ["cactus", "rabbit", "coyote"],
+      ["cactus", "rabbit", "hawk"],
+      ["cactus", "lizard", "snake", "hawk"],
+      ["dead_tree", "decomposer"]
     ]
   }
 }
