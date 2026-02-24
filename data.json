@@ -1,88 +1,105 @@
 {
-  "organisms": [
-    {
-      "id": "cactus",
-      "name": "ต้นกระบองเพชร",
-      "type": "Biotic",
-      "role": "Producer (ผู้ผลิต)",
-      "desc": "พืชทนแล้ง เก็บกักน้ำได้ดี เป็นแหล่งอาหารและน้ำให้สัตว์ทะเลทราย",
-      "top": "450px",
-      "left": "100px",
-      "image": "🌵"
-    },
-    {
-      "id": "shrub",
-      "name": "พุ่มไม้แห้ง",
-      "type": "Biotic",
-      "role": "Producer (ผู้ผลิต)",
-      "desc": "พืชไม้พุ่มขนาดเล็ก ทนต่อความร้อนสูง",
-      "top": "480px",
-      "left": "300px",
-      "image": "🌿"
-    },
-    {
-      "id": "beetle",
-      "name": "ด้วงทะเลทราย",
-      "type": "Biotic",
-      "role": "Primary Consumer",
-      "desc": "กินพืชเป็นอาหาร และเป็นเหยื่อของสัตว์เลื้อยคลาน",
-      "top": "350px",
-      "left": "200px",
-      "image": "🪲"
-    },
-    {
-      "id": "lizard",
-      "name": "กิ้งก่า",
-      "type": "Biotic",
-      "role": "Secondary Consumer",
-      "desc": "สัตว์เลื้อยคลานที่ล่าแมลงเป็นอาหาร",
-      "top": "250px",
-      "left": "350px",
-      "image": "🦎"
-    },
-    {
-      "id": "scorpion",
-      "name": "แมงป่อง",
-      "type": "Biotic",
-      "role": "Secondary Consumer",
-      "desc": "สัตว์มีพิษ ซ่อนตัวตามโขดหิน ล่าแมลงและสัตว์เล็ก",
-      "top": "380px",
-      "left": "550px",
-      "image": "🦂"
-    },
-    {
-      "id": "snake",
-      "name": "งูหางกระดิ่ง",
-      "type": "Biotic",
-      "role": "Tertiary Consumer",
-      "desc": "นักล่าอันตราย กินกิ้งก่าและสัตว์ฟันแทะ",
-      "top": "200px",
-      "left": "650px",
-      "image": "🐍"
-    },
-    {
-      "id": "hawk",
-      "name": "เหยี่ยว",
-      "type": "Biotic",
-      "role": "Top Consumer",
-      "desc": "ผู้ล่าสูงสุดในระบบนิเวศนี้ ล่าสัตว์เลื้อยคลานจากบนฟ้า",
-      "top": "80px",
-      "left": "450px",
-      "image": "🦅"
-    }
-  ],
-  "webConnections": [
-    { "from": "cactus", "to": "beetle" },
-    { "from": "shrub", "to": "beetle" },
-    { "from": "beetle", "to": "lizard" },
-    { "from": "beetle", "to": "scorpion" },
-    { "from": "lizard", "to": "snake" },
-    { "from": "lizard", "to": "hawk" },
-    { "from": "scorpion", "to": "snake" },
-    { "from": "snake", "to": "hawk" }
-  ],
-  "foodChains": [
-    ["cactus", "beetle", "lizard", "hawk"],
-    ["shrub", "beetle", "scorpion", "snake", "hawk"]
-  ]
+  "ecosystem": {
+    "name": "Desert Ecosystem",
+    "nodes": [
+      {
+        "id": "sun",
+        "name": "ดวงอาทิตย์ (Sun)",
+        "type": "Abiotic",
+        "role": "แหล่งพลังงาน",
+        "desc": "ให้พลังงานแสงและความร้อน เป็นจุดเริ่มต้นของการถ่ายทอดพลังงาน",
+        "position": { "top": "25%", "left": "45%" }
+      },
+      {
+        "id": "dead_tree",
+        "name": "ซากไม้แห้ง (Dead Wood)",
+        "type": "Abiotic",
+        "role": "แหล่งที่อยู่อาศัย",
+        "desc": "เป็นที่หลบภัย ซ่อนตัว และให้ร่มเงาแก่สัตว์ขนาดเล็ก",
+        "position": { "top": "70%", "left": "70%" }
+      },
+      {
+        "id": "grass",
+        "name": "หญ้าทะเลทราย (Desert Grass)",
+        "type": "Biotic",
+        "role": "ผู้ผลิต (Producer)",
+        "desc": "พืชทนแล้ง เปลี่ยนพลังงานแสงอาทิตย์เป็นอาหารผ่านการสังเคราะห์ด้วยแสง",
+        "position": { "top": "58%", "left": "48%" }
+      },
+      {
+        "id": "mouse",
+        "name": "หนูทะเลทราย (Jerboa/Mouse)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคอันดับ 1 (Primary Consumer)",
+        "desc": "กินเมล็ดพืชและหญ้าเป็นอาหาร เป็นเหยื่อหลักของสัตว์นักล่าหลายชนิด",
+        "position": { "top": "80%", "left": "38%" }
+      },
+      {
+        "id": "rabbit",
+        "name": "กระต่ายป่า (Jackrabbit)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคอันดับ 1 (Primary Consumer)",
+        "desc": "กินพืช หญ้า และเปลือกไม้ มีหูยาวช่วยระบายความร้อน",
+        "position": { "top": "45%", "left": "60%" }
+      },
+      {
+        "id": "sheep",
+        "name": "แกะภูเขา (Bighorn Sheep)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคอันดับ 1 (Primary Consumer)",
+        "desc": "สัตว์กินพืชขนาดใหญ่ อาศัยอยู่ตามโขดหิน กินพุ่มไม้และหญ้า",
+        "position": { "top": "35%", "left": "50%" }
+      },
+      {
+        "id": "lizard",
+        "name": "กิ้งก่า (Lizard)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคอันดับ 2 (Secondary Consumer)",
+        "desc": "สัตว์เลือดเย็น กินแมลงและพืชบางชนิด มักอาศัยตามโขดหินหรือกิ่งไม้",
+        "position": { "top": "66%", "left": "78%" }
+      },
+      {
+        "id": "snake",
+        "name": "งูหางกระดิ่ง (Rattlesnake)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคอันดับ 2-3 (Secondary/Tertiary)",
+        "desc": "สัตว์เลื้อยคลานมีพิษ ดักซุ่มโจมตีหนู กิ้งก่า หรือกระต่ายตัวเล็ก",
+        "position": { "top": "85%", "left": "20%" }
+      },
+      {
+        "id": "coyote",
+        "name": "ไคโยตี้ (Coyote)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคระดับสูง (Tertiary Consumer)",
+        "desc": "นักล่าที่ปรับตัวเก่ง กินได้ทั้งกระต่าย หนู หรือแม้แต่กิ้งก่า",
+        "position": { "top": "48%", "left": "80%" }
+      },
+      {
+        "id": "hawk",
+        "name": "เหยี่ยว (Hawk)",
+        "type": "Biotic",
+        "role": "ผู้บริโภคสูงสุด (Top Consumer)",
+        "desc": "นกนักล่าสายตาคมกริบ โฉบจับหนู งู และกระต่ายจากทางอากาศ",
+        "position": { "top": "15%", "left": "55%" }
+      }
+    ],
+    "webConnections": [
+      { "from": "grass", "to": "mouse" },
+      { "from": "grass", "to": "rabbit" },
+      { "from": "grass", "to": "sheep" },
+      { "from": "mouse", "to": "snake" },
+      { "from": "mouse", "to": "coyote" },
+      { "from": "mouse", "to": "hawk" },
+      { "from": "rabbit", "to": "coyote" },
+      { "from": "rabbit", "to": "hawk" },
+      { "from": "lizard", "to": "snake" },
+      { "from": "lizard", "to": "hawk" },
+      { "from": "snake", "to": "hawk" }
+    ],
+    "foodChains": [
+      ["grass", "mouse", "snake", "hawk"],
+      ["grass", "rabbit", "coyote"],
+      ["grass", "mouse", "hawk"]
+    ]
+  }
 }

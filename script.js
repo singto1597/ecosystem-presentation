@@ -1,6 +1,6 @@
 let allLeaderLines = [];
 let viewState = 0;
-let parsedData = null; // เก็บข้อมูล JSON ไว้ใช้
+let parsedData = null; 
 
 const mapContainer = document.getElementById('desert-map');
 const statusText = document.getElementById('status-text');
@@ -11,36 +11,41 @@ const infoCard = document.getElementById('info-card');
 async function loadData() {
     try {
         const response = await fetch('data.json');
-        parsedData = await response.json();
+        const rawData = await response.json();
+        
+        // แก้จุดที่ 1: ดึงก้อน ecosystem ออกมาก่อน
+        parsedData = rawData.ecosystem; 
         
         createOrganisms();
         
-        // รอแป๊บนึงให้เว็บบราวเซอร์วาดกล่องเสร็จก่อน ค่อยลากเส้น ไม่งั้นเส้นเบี้ยว
         setTimeout(() => {
             createLines();
         }, 100);
 
     } catch (error) {
         console.error("เกิดข้อผิดพลาดในการโหลดไฟล์ JSON:", error);
-        alert("โหลดข้อมูลไม่สำเร็จ! เช็คให้แน่ใจว่าเปิดผ่าน Live Server (ถ้าเปิดไฟล์ HTML ตรงๆ จะติด CORS error)");
+        alert("โหลดข้อมูล JSON พัง! ลองเปิด Console (F12) ดูว่า Error อะไร");
     }
 }
 
-// 1. สร้าง DOM (กล่องสิ่งมีชีวิต) จากข้อมูล
+// 1. สร้าง DOM จากข้อมูล
 function createOrganisms() {
-    parsedData.organisms.forEach(org => {
+    // แก้จุดที่ 2: เปลี่ยนจาก organisms เป็น nodes ตามไฟล์ JSON
+    parsedData.nodes.forEach(org => {
         const div = document.createElement('div');
         div.id = org.id;
         div.className = 'organism';
-        div.innerHTML = org.image; // ใส่ Emoji หรือถ้านายมีรูปก็ใช้เป็น <img src="..."> ได้
         
-        // กำหนดตำแหน่งจาก JSON
-        div.style.top = org.top;
-        div.style.left = org.left;
+        // ถ้านายอยากใส่ Emoji ชั่วคราว ให้ใส่ใน JSON ว่า "emoji": "🦅" 
+        // หรือถ้าจะเอารูปมาใส่เป็น CSS Background ให้ลบบรรทัดนี้ทิ้งไปเลย
+        div.innerHTML = org.emoji || ''; 
+        
+        // แก้จุดที่ 3: ดึงตำแหน่งจาก org.position
+        div.style.top = org.position.top;
+        div.style.left = org.position.left;
 
-        // เมื่อคลิกที่สิ่งมีชีวิต ให้โชว์กล่องข้อมูล
         div.addEventListener('click', (e) => {
-            e.stopPropagation(); // กันไม่ให้คลิกทะลุไปโดนพื้นหลัง
+            e.stopPropagation(); 
             showInfo(org);
         });
 
@@ -61,14 +66,13 @@ function showInfo(org) {
     infoCard.style.display = 'block';
 }
 
-// ปิดกล่องข้อมูลเมื่อคลิกที่พื้นหลังว่างๆ
 mapContainer.addEventListener('click', (e) => {
     if (e.target === mapContainer) {
         infoCard.style.display = 'none';
     }
 });
 
-// 3. สร้างเส้น LeaderLine เตรียมไว้ (แต่ซ่อนไว้ก่อน)
+// 3. สร้างเส้น LeaderLine
 function createLines() {
     parsedData.webConnections.forEach(conn => {
         const elFrom = document.getElementById(conn.from);
@@ -86,11 +90,10 @@ function createLines() {
     });
 }
 
-// 4. ควบคุมการแสดงผล (กดปุ่มแล้วโชว์เส้น)
+// 4. ควบคุมการแสดงผล
 function updateView() {
     const organismsDOM = document.querySelectorAll('.organism');
     
-    // รีเซ็ตเส้นทั้งหมด และเอา highlight/dim ออก
     allLeaderLines.forEach(line => line.hide('draw'));
     organismsDOM.forEach(org => org.classList.remove('highlighted', 'dimmed'));
 
@@ -104,7 +107,6 @@ function updateView() {
         const currentChainIDs = parsedData.foodChains[chainIndex];
         statusText.textContent = `กำลังไฮไลท์ห่วงโซ่ที่ ${chainIndex + 1}`;
 
-        // ทำให้ตัวที่ไม่เกี่ยวจางลง
         organismsDOM.forEach(org => {
             if (!currentChainIDs.includes(org.id)) {
                 org.classList.add('dimmed');
@@ -128,7 +130,6 @@ function updateView() {
     }
 }
 
-// Event ปุ่มกด
 toggleBtn.addEventListener('click', () => {
     viewState++;
     if (viewState > parsedData.foodChains.length + 1) {
@@ -138,5 +139,4 @@ toggleBtn.addEventListener('click', () => {
     updateView();
 });
 
-// เริ่มต้นรันโปรแกรม
 loadData();

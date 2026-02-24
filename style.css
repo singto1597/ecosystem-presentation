@@ -18,14 +18,20 @@ button {
 }
 button:hover { background-color: #faedcd; }
 
+/* กรอบแผนที่ทะเลทราย */
 #desert-map {
     position: relative;
-    width: 900px; height: 600px;
-    background-image: url('https://placehold.co/900x600/c2956e/a17c5b?text=Desert+Background');
-    background-size: cover;
-    border-radius: 12px; border: 3px solid #a17c5b;
+    width: 900px; 
+    height: 600px;
+    
+    /* เปลี่ยนตรงนี้แหละ! ใส่ชื่อไฟล์รูปของเราลงไป */
+    background-image: url('./bg-desert.jpg'); 
+    
+    background-size: cover; /* บรรทัดนี้จะทำให้รูปขยายพอดีกรอบ */
+    background-position: center; /* จัดให้รูปอยู่กึ่งกลาง */
+    border-radius: 12px; 
+    border: 3px solid #a17c5b;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    overflow: hidden; /* ป้องกันของล้นกรอบ */
 }
 
 /* สไตล์กล่องสิ่งมีชีวิต */
