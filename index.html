@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desert Ecosystem Interactive</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js"></script>
+</head>
+<body>
+
+    <h1>🌵 ระบบนิเวศทะเลทราย (Desert Ecosystem) 🦂</h1>
+    <div id="controls">
+        <p>สถานะปัจจุบัน: <span id="status-text" style="color:#ffeb3b">ซ่อนสายใยอาหาร</span></p>
+        <button id="toggle-btn">🔄 เปลี่ยนมุมมองสายใยอาหาร/ห่วงโซ่</button>
+    </div>
+
+    <div id="desert-map">
+        <div id="info-card">
+            <h2 id="card-name">ชื่อสิ่งมีชีวิต</h2>
+            <span id="card-type" class="tag">Type</span>
+            <p><strong>บทบาท:</strong> <span id="card-role">Role</span></p>
+            <p id="card-desc">รายละเอียด</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

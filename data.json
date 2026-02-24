@@ -1,0 +1,88 @@
+{
+  "organisms": [
+    {
+      "id": "cactus",
+      "name": "ต้นกระบองเพชร",
+      "type": "Biotic",
+      "role": "Producer (ผู้ผลิต)",
+      "desc": "พืชทนแล้ง เก็บกักน้ำได้ดี เป็นแหล่งอาหารและน้ำให้สัตว์ทะเลทราย",
+      "top": "450px",
+      "left": "100px",
+      "image": "🌵"
+    },
+    {
+      "id": "shrub",
+      "name": "พุ่มไม้แห้ง",
+      "type": "Biotic",
+      "role": "Producer (ผู้ผลิต)",
+      "desc": "พืชไม้พุ่มขนาดเล็ก ทนต่อความร้อนสูง",
+      "top": "480px",
+      "left": "300px",
+      "image": "🌿"
+    },
+    {
+      "id": "beetle",
+      "name": "ด้วงทะเลทราย",
+      "type": "Biotic",
+      "role": "Primary Consumer",
+      "desc": "กินพืชเป็นอาหาร และเป็นเหยื่อของสัตว์เลื้อยคลาน",
+      "top": "350px",
+      "left": "200px",
+      "image": "🪲"
+    },
+    {
+      "id": "lizard",
+      "name": "กิ้งก่า",
+      "type": "Biotic",
+      "role": "Secondary Consumer",
+      "desc": "สัตว์เลื้อยคลานที่ล่าแมลงเป็นอาหาร",
+      "top": "250px",
+      "left": "350px",
+      "image": "🦎"
+    },
+    {
+      "id": "scorpion",
+      "name": "แมงป่อง",
+      "type": "Biotic",
+      "role": "Secondary Consumer",
+      "desc": "สัตว์มีพิษ ซ่อนตัวตามโขดหิน ล่าแมลงและสัตว์เล็ก",
+      "top": "380px",
+      "left": "550px",
+      "image": "🦂"
+    },
+    {
+      "id": "snake",
+      "name": "งูหางกระดิ่ง",
+      "type": "Biotic",
+      "role": "Tertiary Consumer",
+      "desc": "นักล่าอันตราย กินกิ้งก่าและสัตว์ฟันแทะ",
+      "top": "200px",
+      "left": "650px",
+      "image": "🐍"
+    },
+    {
+      "id": "hawk",
+      "name": "เหยี่ยว",
+      "type": "Biotic",
+      "role": "Top Consumer",
+      "desc": "ผู้ล่าสูงสุดในระบบนิเวศนี้ ล่าสัตว์เลื้อยคลานจากบนฟ้า",
+      "top": "80px",
+      "left": "450px",
+      "image": "🦅"
+    }
+  ],
+  "webConnections": [
+    { "from": "cactus", "to": "beetle" },
+    { "from": "shrub", "to": "beetle" },
+    { "from": "beetle", "to": "lizard" },
+    { "from": "beetle", "to": "scorpion" },
+    { "from": "lizard", "to": "snake" },
+    { "from": "lizard", "to": "hawk" },
+    { "from": "scorpion", "to": "snake" },
+    { "from": "snake", "to": "hawk" }
+  ],
+  "foodChains": [
+    ["cactus", "beetle", "lizard", "hawk"],
+    ["shrub", "beetle", "scorpion", "snake", "hawk"]
+  ]
+}
